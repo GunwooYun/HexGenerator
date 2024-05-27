@@ -44,7 +44,12 @@ void MainWindow::PutZeroX(void)
 
 void MainWindow::DelZeroX(void)
 {
-    ui->te_inputRandom->clear();
+    // ui->te_inputRandom->clear();
+    QString strInputHexValue = ui->te_inputRandom->toPlainText();
+    Hex hex(strInputHexValue);
+
+    QString strInputHex = hex.DropZeroX();
+    ui->te_outputRandom->setText(strInputHex);
 }
 
 void MainWindow::clearTextEditAbove(void)

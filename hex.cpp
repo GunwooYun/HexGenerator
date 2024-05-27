@@ -63,5 +63,22 @@ QString Hex::PutZeroX()
 
 QString Hex::DropZeroX()
 {
+    int nIndex = 0;
+    QString strHexValueNo0x;
+    QString strTemp;
 
+    while(true){
+        nIndex = strHexValue.indexOf("0x", nIndex, Qt::CaseInsensitive);
+        if(nIndex < 0) break;
+        nIndex += 2;
+        strTemp = strHexValue.mid(nIndex, 2);
+        if(strTemp.back() == ',')
+        {
+            strTemp.prepend("0");
+            strTemp.chop(1);
+        }
+        strHexValueNo0x.append(strTemp);
+    }
+
+    return strHexValueNo0x;
 }
