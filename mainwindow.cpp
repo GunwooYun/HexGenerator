@@ -25,17 +25,16 @@ void MainWindow::getInputValue(void)
     int nLen = ui->le_RandLen->text().toInt();
     Hex hex(nLen);
 
-    QString strGenRandom = hex.GenRandomNumber();
+    strHexValue = hex.GenRandomNumber();
 
-    ui->te_outputRandom->setText(strGenRandom);
+    ui->te_outputRandom->setText(strHexValue);
 
 }
 
 void MainWindow::PutZeroX(void)
 {
-    // ui->te_inputRandom->clear();
-    QString strInputRandom = ui->te_inputRandom->toPlainText();
-    Hex hex(strInputRandom);
+    QString strInputHexValue = ui->te_inputRandom->toPlainText();
+    Hex hex(strInputHexValue);
 
     QString strInputHex = hex.PutZeroX();
 

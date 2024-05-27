@@ -9,13 +9,16 @@
 class Hex
 {
 private:
-    // QString strInputHex;
-    QString strRandom;
+    QString strHexValue;
     int nReqLen;
 public:
     // Hex();
-    Hex(QString strInputRandom = ""){ this->strRandom = strInputRandom; }
+    Hex(QString strInputRandom = ""){ this->strHexValue = strInputRandom; }
     Hex(int nReqLen = 0){ this->nReqLen = nReqLen; }
+    // Hex(QString strInputRandom = "", int nReqLen = 0){
+    //     this->strHexValue = strInputRandom;
+    //     this->nReqLen = nReqLen;
+    // }
     QString GenRandomNumber();
     QString PutZeroX();
     QString DropZeroX();

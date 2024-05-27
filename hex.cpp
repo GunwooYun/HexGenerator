@@ -11,7 +11,7 @@ QString Hex::GenRandomNumber()
 
     QRandomGenerator *pRandomGenerator = QRandomGenerator::global();
 
-    if(nReqLen == 0) return strRandom;
+    if(nReqLen == 0) return strHexValue;
 
     for(int i = 0; i < (nReqLen / 4) + 1; i++)
     {
@@ -20,24 +20,44 @@ QString Hex::GenRandomNumber()
         for(int j = 0; j < 4; j++)
         {
             bytes[j] = (nRandomValue32 >> (24 - (j * 8))) & 0xFF;
-            strRandom.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper()); nCount++;
+            strHexValue.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper()); nCount++;
             if(nCount >= nReqLen)
             {
                 flagFinish = true;
+                break;
             }
         }
         if(flagFinish) break;
     }
 
-    strRandom.chop(2); /*  Eliminate comma(,) + space */
+    strHexValue.chop(2); /*  Eliminate comma(,) + space */
 
-    return strRandom;
+    return strHexValue;
 }
 
 QString Hex::PutZeroX()
 {
+    QString strHexValue0x;
+    // QString ret;
+    // ret = QString("input length: %1").arg(strHexValue.length());
+    nReqLen = strHexValue.length(); /* Input string length */
 
-    return strRandom;
+    if(nReqLen % 2) /* String length is odd */
+    {
+        strHexValue.append("0"); /* Put '0' */
+        nReqLen += 1;
+    }
+
+    for(int i = 0; i < nReqLen; i += 2)
+    {
+        strHexValue0x.append("0x");
+        strHexValue0x.append( strHexValue.mid(i, 2) );
+        strHexValue0x.append(", ");
+    }
+
+    strHexValue0x.chop(2);
+
+    return strHexValue0x;
 
 }
 
