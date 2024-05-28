@@ -38,8 +38,17 @@ QString Hex::GenRandomNumber()
 QString Hex::PutZeroX()
 {
     QString strHexValue0x;
-    // QString ret;
-    // ret = QString("input length: %1").arg(strHexValue.length());
+    int nIndex = 0;
+
+    /* Check if there is prefix "0x" */
+    while(true){
+        nIndex = strHexValue.indexOf("0x", nIndex, Qt::CaseInsensitive); /* Get index */
+        if(nIndex < 0) break; /* No more "0x" */
+
+        strHexValue.remove(nIndex, 2); /* Remove "0x" */
+    }
+
+
     nReqLen = strHexValue.length(); /* Input string length */
 
     if(nReqLen % 2) /* String length is odd */
@@ -68,16 +77,16 @@ QString Hex::DropZeroX()
     QString strTemp;
 
     while(true){
-        nIndex = strHexValue.indexOf("0x", nIndex, Qt::CaseInsensitive);
-        if(nIndex < 0) break;
-        nIndex += 2;
-        strTemp = strHexValue.mid(nIndex, 2);
-        if(strTemp.back() == ',')
+        nIndex = strHexValue.indexOf("0x", nIndex, Qt::CaseInsensitive); /* Get index */
+        if(nIndex < 0) break; /* No more "0x" */
+        nIndex += 2; /* Move index */
+        strTemp = strHexValue.mid(nIndex, 2); /* From index get 2 character */
+        if(strTemp.back() == ',') /* ex) 0x7, */
         {
-            strTemp.prepend("0");
-            strTemp.chop(1);
+            strTemp.prepend("0"); /* 07, */
+            strTemp.chop(1); /* 07 */
         }
-        strHexValueNo0x.append(strTemp);
+        strHexValueNo0x.append(strTemp); /* Append only hex value */
     }
 
     return strHexValueNo0x;
