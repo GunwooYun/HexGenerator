@@ -47,7 +47,15 @@ QString Hex::PutZeroX()
 
         strHexValue.remove(nIndex, 2); /* Remove "0x" */
     }
+    // return strHexValue;
 
+    /* Check if there is comma */
+    while(true){
+        nIndex = strHexValue.indexOf(','); /* Get index */
+        if(nIndex < 0) break; /* No more "0x" */
+
+        strHexValue.remove(nIndex, 1); /* Remove "0x" */
+    }
 
     nReqLen = strHexValue.length(); /* Input string length */
 
