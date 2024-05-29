@@ -11,17 +11,16 @@ class Hex
 private:
     QString strHexValue;
     int nReqLen;
+    bool bWrongInputValueFlag = false;
+    bool chkInputHealthy();
 public:
-    // Hex();
-    Hex(QString strInputRandom = ""){ this->strHexValue = strInputRandom; }
-    Hex(int nReqLen = 0){ this->nReqLen = nReqLen; }
-    // Hex(QString strInputRandom = "", int nReqLen = 0){
-    //     this->strHexValue = strInputRandom;
-    //     this->nReqLen = nReqLen;
-    // }
+    Hex(QString strInputRandom = "");
+    Hex(int nReqLen = 0);
     QString GenRandomNumber();
     QString PutZeroX();
     QString DropZeroX();
+    bool isWrongInput();
+
 };
 
 #endif // HEX_H

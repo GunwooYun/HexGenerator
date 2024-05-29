@@ -36,10 +36,14 @@ void MainWindow::PutZeroX(void)
     QString strInputHexValue = ui->te_inputRandom->toPlainText();
     Hex hex(strInputHexValue);
 
-    QString strInputHex = hex.PutZeroX();
-
-    ui->te_outputRandom->setText(strInputHex);
-
+    if(hex.isWrongInput())
+    {
+        ui->te_outputRandom->setText(QString("Wrong"));
+    }
+    else
+    {
+        ui->te_outputRandom->setText(hex.PutZeroX());
+    }
 }
 
 void MainWindow::DelZeroX(void)
