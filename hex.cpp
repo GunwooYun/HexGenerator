@@ -4,9 +4,9 @@
 Hex::Hex(int nMode, QString strInput)
 {
     this->strInputValue = strInput;
+    this->nMode = nMode;
 
-    // Add check input health
-
+#if 0
     if(nMode == 0) /* Generate hex value */
     {
         if(isNumber())
@@ -26,6 +26,7 @@ Hex::Hex(int nMode, QString strInput)
     {
         /* not yet.. */
     }
+#endif
 }
 
 bool Hex::isNumber(void)
@@ -40,15 +41,15 @@ bool Hex::isNumber(void)
 
     return true;
 }
-#if 0
-bool Hex::isHexadecimal(void)
+#if 1
+bool Hex::isStringHex(void)
 {
     int nAsciiValue;
 
     /* Check normal input */
-    for(int i = 0; i < strHexValue.length(); i++)
+    for(int i = 0; i < strInputValue.length(); i++)
     {
-        nAsciiValue = strHexValue.at(i).toLatin1(); /* Get ASCII code of each character */
+        nAsciiValue = strInputValue.at(i).toLatin1(); /* Get ASCII code of each character */
         if((nAsciiValue >= 65 && nAsciiValue <= 70) || (nAsciiValue >= 97 && nAsciiValue <= 102) || /* A-F || a-f */
             (nAsciiValue >= 48 && nAsciiValue <= 57) || (nAsciiValue == 120) || (nAsciiValue == 88)) /* 0-9 || x || X */
         {
@@ -56,12 +57,12 @@ bool Hex::isHexadecimal(void)
         }
         else
         {
-            bWrongInputValueFlag = true;
+            bWrongInputFlag = true;
             break;
         }
     }
 
-    return bWrongInputValueFlag;
+    return bWrongInputFlag;
 }
 #endif
 

@@ -12,8 +12,10 @@ private:
     QString strInputValue; /* User input hex value */
     QString strHexValue;
     int nReqLen; /* User require hex value length */
+    // bool bWrongInputFlag = false;
+    int nMode;
 
-    bool isHexadecimal(void);
+    bool isStringHex(void);
     bool isNumber(void);
 
 public:
