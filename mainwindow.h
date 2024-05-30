@@ -19,15 +19,17 @@ public:
 
 private slots:
 
-    void getInputValue(void);
-    void PutZeroX(void);
-    void DelZeroX(void);
-    void clearTextEditAbove(void);
-    void clearTextEditBelow(void);
+    void getHexValue(void);
+    void switchMode(void);
+    // void PutZeroX(void);
+    // void DelZeroX(void);
+    // void clearTextEditAbove(void);
+    // void clearTextEditBelow(void);
 
 private:
     Ui::MainWindow *ui;
-    QString strInputValue;
-    QString strHexValue;
+    int nMode;
+    // QString strInputValue;
+    // QString strHexValue;
 };
 #endif // MAINWINDOW_H

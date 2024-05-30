@@ -25,56 +25,63 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QTextEdit" name="te_inputRandom"/>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="le_RandLen"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_show">
+          <widget class="QRadioButton" name="rbtn_GenHex">
            <property name="text">
-            <string>Get</string>
+            <string>Gen Hex</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_putZeroX">
+          <widget class="QRadioButton" name="rbtn_Put0x">
            <property name="text">
-            <string>Put 0x</string>
+            <string>Put '0x'</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_delZeroX">
+          <widget class="QRadioButton" name="rbtn_Drop0x">
            <property name="text">
-            <string>Del 0x</string>
+            <string>Drop '0x'</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_ClearTextEditAbove">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>Clear</string>
+            <string>TextLabel</string>
            </property>
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QTextEdit" name="te_outputRandom"/>
+        <widget class="QTextEdit" name="te_HexValue"/>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_ClearTextEditBelow">
+        <widget class="QPushButton" name="btn_Get">
          <property name="text">
-          <string>Clear</string>
+          <string>Get</string>
          </property>
         </widget>
        </item>

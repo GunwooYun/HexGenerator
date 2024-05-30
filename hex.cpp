@@ -1,6 +1,86 @@
 #include "hex.h"
 #include <QRandomGenerator>
 
+Hex::Hex(int nMode, QString strInput)
+{
+    this->strInputValue = strInput;
+    if(nMode == 0) /* Generate hex value */
+    {
+        if(isNumber())
+        {
+            nReqLen = this->strInputValue.toInt();
+        }
+        else
+        {
+            nReqLen = 0;
+        }
+    }
+    else if(nMode == 1) /* Put prefix "0x" */
+    {
+        /* not yet.. */
+    }
+    else /* Drop "0x" */
+    {
+        /* not yet.. */
+    }
+
+}
+
+bool Hex::isNumber(void)
+{
+    if(!strInputValue.contains('0') && !strInputValue.contains('1') && !strInputValue.contains('2') &&
+        !strInputValue.contains('3') && !strInputValue.contains('4') && !strInputValue.contains('5') &&
+         !strInputValue.contains('6') && !strInputValue.contains('7') && !strInputValue.contains('8') &&
+        !strInputValue.contains('9'))
+    {
+        return false;
+    }
+    return true;
+}
+
+QString Hex::GenRandomNumber()
+{
+    QString strRandomValue;
+    unsigned char bytes[4] = {0x00, };
+    quint32 nRandomValue32 = 0;
+    int nCount = 0;
+    bool flagFinish = false;
+
+    QRandomGenerator *pRandomGenerator = QRandomGenerator::global();
+    if(pRandomGenerator == nullptr)
+    {
+        // do something
+    }
+
+    if(nReqLen == 0){
+        return QString("");
+    }
+
+    for(int i = 0; i < (nReqLen / 4) + 1; i++)
+    {
+        nRandomValue32 = pRandomGenerator->generate(); /* generate 32bit random number */
+
+        for(int j = 0; j < 4; j++)
+        {
+            bytes[j] = (nRandomValue32 >> (24 - (j * 8))) & 0xFF;
+            strRandomValue.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper()); nCount++;
+            if(nCount >= nReqLen)
+            {
+                flagFinish = true;
+                break;
+            }
+        }
+        if(flagFinish){
+            break;
+        }
+    }
+
+    strRandomValue.chop(2); /*  Eliminate comma(,) + space */
+
+    return strRandomValue;
+}
+
+#if 0
 Hex::Hex(QString strInputRandom)
 {
     this->strHexValue = strInputRandom;
@@ -13,39 +93,7 @@ Hex::Hex(int nReqLen)
     this->nReqLen = nReqLen;
 }
 
-QString Hex::GenRandomNumber()
-{
-    // QString strRandomValue;
-    unsigned char bytes[4] = {0x00, };
-    quint32 nRandomValue32 = 0;
-    int nCount = 0;
-    bool flagFinish = false;
 
-    QRandomGenerator *pRandomGenerator = QRandomGenerator::global();
-
-    if(nReqLen == 0) return strHexValue;
-
-    for(int i = 0; i < (nReqLen / 4) + 1; i++)
-    {
-        nRandomValue32 = pRandomGenerator->generate(); /* generate 32bit random number */
-
-        for(int j = 0; j < 4; j++)
-        {
-            bytes[j] = (nRandomValue32 >> (24 - (j * 8))) & 0xFF;
-            strHexValue.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper()); nCount++;
-            if(nCount >= nReqLen)
-            {
-                flagFinish = true;
-                break;
-            }
-        }
-        if(flagFinish) break;
-    }
-
-    strHexValue.chop(2); /*  Eliminate comma(,) + space */
-
-    return strHexValue;
-}
 
 QString Hex::PutZeroX()
 {
@@ -144,3 +192,4 @@ bool Hex::isWrongInput()
 {
     return bWrongInputValueFlag;
 }
+#endif

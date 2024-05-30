@@ -8,11 +8,19 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->btn_show, SIGNAL(clicked()), this, SLOT(getInputValue()));
-    connect(ui->btn_putZeroX, SIGNAL(clicked()), this, SLOT(PutZeroX()));
-    connect(ui->btn_delZeroX, SIGNAL(clicked()), this, SLOT(DelZeroX()));
-    connect(ui->btn_ClearTextEditAbove, SIGNAL(clicked()), this, SLOT(clearTextEditAbove()));
-    connect(ui->btn_ClearTextEditBelow, SIGNAL(clicked()), this, SLOT(clearTextEditBelow()));
+    connect(ui->btn_Get, SIGNAL(clicked()), this, SLOT(getHexValue()));
+    connect(ui->rbtn_GenHex, SIGNAL(clicked()), this, SLOT(switchMode()));
+    connect(ui->rbtn_Put0x, SIGNAL(clicked()), this, SLOT(switchMode()));
+    connect(ui->rbtn_Drop0x, SIGNAL(clicked()), this, SLOT(switchMode()));
+    // connect(ui->btn_putZeroX, SIGNAL(clicked()), this, SLOT(PutZeroX()));
+    // connect(ui->btn_delZeroX, SIGNAL(clicked()), this, SLOT(DelZeroX()));
+    // connect(ui->btn_ClearTextEditAbove, SIGNAL(clicked()), this, SLOT(clearTextEditAbove()));
+    // connect(ui->btn_ClearTextEditBelow, SIGNAL(clicked()), this, SLOT(clearTextEditBelow()));
+
+    // connect( mDText, SIGNAL(textChanged(QString)), this, SLOT(changeD(QString)));
+
+    ui->rbtn_GenHex->setChecked(true);
+    this->nMode = 0;
 }
 
 MainWindow::~MainWindow()
@@ -20,17 +28,69 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::getInputValue(void)
+void MainWindow::getHexValue(void)
 {
-    int nLen = ui->le_RandLen->text().toInt();
+    QString strInput = ui->te_HexValue->toPlainText();
+    Hex hex(this->nMode, strInput);
+
+    ui->te_HexValue->setText(hex.GenRandomNumber());
+#if 0
+    int nMode;
+    if(ui->rbtn_GenHex->isChecked())
+    {
+        nMode = 0;
+    }
+    else if(ui->rbtn_Put0x->isChecked())
+    {
+        nMode = 1;
+    }
+    else
+    {
+        nMode = 2;
+    }
+    // int nLen = ui->le_RandLen->text().toInt();
     Hex hex(nLen);
 
     strHexValue = hex.GenRandomNumber();
 
     ui->te_outputRandom->setText(strHexValue);
 
+    if(nMode == 0)
+    {
+        ui->te_HexValue->setText(QString("Mode %1: Generate Hex").arg(nMode));
+    }
+    else if(nMode == 1)
+    {
+        ui->te_HexValue->setText(QString("Mode %1: put 0x").arg(nMode));
+    }
+    else
+    {
+        ui->te_HexValue->setText(QString("Mode %1: drop 0x").arg(nMode));
+    }
+#endif
 }
 
+void MainWindow::switchMode()
+{
+    ui->te_HexValue->clear();
+    if(ui->rbtn_GenHex->isChecked())
+    {
+        nMode = 0;
+        // ui->te_HexValue->setText(QString("Mode %1: Generate Hex").arg(nMode));
+    }
+    else if(ui->rbtn_Put0x->isChecked())
+    {
+        nMode = 1;
+        // ui->te_HexValue->setText(QString("Mode %1: put 0x").arg(nMode));
+    }
+    else
+    {
+        nMode = 2;
+        // ui->te_HexValue->setText(QString("Mode %1: drop 0x").arg(nMode));
+    }
+
+}
+#if 0
 void MainWindow::PutZeroX(void)
 {
     QString strInputHexValue = ui->te_inputRandom->toPlainText();
@@ -65,3 +125,4 @@ void MainWindow::clearTextEditBelow(void)
 {
     ui->te_outputRandom->clear();
 }
+#endif
