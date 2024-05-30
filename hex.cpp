@@ -190,7 +190,6 @@ void Hex::Put0x()
 void Hex::Drop0x()
 {
     int nIndex = 0;
-    // QString strHexValueNo0x;
     QString strTemp;
 
     while(true)
@@ -198,6 +197,10 @@ void Hex::Drop0x()
         nIndex = strInputValue.indexOf("0x", nIndex, Qt::CaseInsensitive); /* Get index */
         if(nIndex < 0)
         {
+            if(strTemp.isEmpty()) /* Did nothing because of processed input */
+            {
+                strHexValue = strInputValue;
+            }
             break; /* No more "0x" */
         }
 
@@ -210,6 +213,4 @@ void Hex::Drop0x()
         }
         strHexValue.append(strTemp); /* Append only hex value */
     }
-
-    // strInputValue = strHexValueNo0x;
 }
