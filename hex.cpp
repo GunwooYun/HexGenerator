@@ -70,6 +70,11 @@ QString Hex::GetHexValue()
     return strHexValue;
 }
 
+int Hex::GetHexLen()
+{
+    return nReqLen;
+}
+
 void Hex::GenHexValue()
 {
     unsigned char bytes[4] = {0x00, };
@@ -131,6 +136,14 @@ void Hex::Put0x()
     while(true)
     {
         nIndex = strInputValue.indexOf(','); /* Get index of ',' */
+        if(nIndex < 0) break; /* No more "0x" */
+
+        strInputValue.remove(nIndex, 1); /* Remove "0x" */
+    }
+
+    while(true)
+    {
+        nIndex = strInputValue.indexOf(' '); /* Get index of ',' */
         if(nIndex < 0) break; /* No more "0x" */
 
         strInputValue.remove(nIndex, 1); /* Remove "0x" */

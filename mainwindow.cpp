@@ -13,8 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rbtn_Put0x, SIGNAL(clicked()), this, SLOT(switchMode()));
     connect(ui->rbtn_Drop0x, SIGNAL(clicked()), this, SLOT(switchMode()));
 
+    // connect(ui->te_HexValue, SIGNAL(textChanged()), this, SLOT(changeInput(QString)));
+    // connect(ui->te_HexValue, &QTextEdit::textChanged, this, &MainWindow::changeInput);
+
     ui->rbtn_GenHex->setChecked(true);
     this->nMode = 0;
+
+    ui->label_InputLen->clear();
+
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +37,8 @@ void MainWindow::getHexValue(void)
     if(nMode == 0)
     {
         hex.GenHexValue();
+        // ui->label_InputLen->setText(QString("%1 Bytes").arg(hex.GetHexLen()));
+
     }
     else if(nMode == 1)
     {
@@ -40,6 +48,7 @@ void MainWindow::getHexValue(void)
     {
         hex.Drop0x();
     }
+    ui->label_InputLen->setText(QString("%1 Bytes").arg(hex.GetHexLen()));
 
     ui->te_HexValue->setText(hex.GetHexValue());
 }
@@ -50,13 +59,23 @@ void MainWindow::switchMode()
     if(ui->rbtn_GenHex->isChecked())
     {
         nMode = 0;
+        // ui->label_InputLen->setText(QString("Byte: %1").arg(0));
     }
     else if(ui->rbtn_Put0x->isChecked())
     {
         nMode = 1;
+        // ui->label_InputLen->setText(QString("Length: %1").arg(0));
     }
     else
     {
         nMode = 2;
     }
 }
+/*
+void MainWindow::changeInput()
+{
+    QString strInputValue = ui->te_HexValue->toPlainText();
+    int nInputLength = strInputValue.length();
+    ui->label_InputLen->setText(QString("%1").arg(nInputLength));
+}
+*/
