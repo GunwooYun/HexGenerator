@@ -32,13 +32,11 @@ void MainWindow::getHexValue(void)
 {
     QString strInput = ui->te_HexValue->toPlainText();
 
-    Hex hex(this->nMode, strInput);
+    Hex hex(strInput);
 
     if(nMode == 0)
     {
-        hex.GenHexValue();
-        // ui->label_InputLen->setText(QString("%1 Bytes").arg(hex.GetHexLen()));
-
+         hex.GenHexValue();
     }
     else if(nMode == 1)
     {
@@ -59,12 +57,10 @@ void MainWindow::switchMode()
     if(ui->rbtn_GenHex->isChecked())
     {
         nMode = 0;
-        // ui->label_InputLen->setText(QString("Byte: %1").arg(0));
     }
     else if(ui->rbtn_Put0x->isChecked())
     {
         nMode = 1;
-        // ui->label_InputLen->setText(QString("Length: %1").arg(0));
     }
     else
     {

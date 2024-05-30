@@ -16,10 +16,11 @@ private:
     int nMode;
 
     bool isStringHex(void);
-    bool isNumber(void);
+    bool isNumber(void); /* Check input has only numbers */
 
 public:
-    Hex(int nMode = 0, QString strInputValue = "");
+    // Hex(int nMode = 0, QString strInputValue = "");
+    Hex(QString strInputValue = "");
     void GenHexValue();
     void Put0x();
     void Drop0x();

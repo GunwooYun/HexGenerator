@@ -1,42 +1,27 @@
 #include "hex.h"
 #include <QRandomGenerator>
 
-Hex::Hex(int nMode, QString strInput)
+Hex::Hex(QString strInput)
 {
     this->strInputValue = strInput;
-    this->nMode = nMode;
-
-#if 0
-    if(nMode == 0) /* Generate hex value */
-    {
-        if(isNumber())
-        {
-            nReqLen = this->strInputValue.toInt();
-        }
-        else
-        {
-            nReqLen = 0;
-        }
-    }
-    else if(nMode == 1) /* Put prefix "0x" */
-    {
-        /* not yet.. */
-    }
-    else /* Drop "0x" */
-    {
-        /* not yet.. */
-    }
-#endif
+    this->nReqLen = 0;
 }
 
 bool Hex::isNumber(void)
 {
-    if(!strInputValue.contains('0') && !strInputValue.contains('1') && !strInputValue.contains('2') &&
-       !strInputValue.contains('3') && !strInputValue.contains('4') && !strInputValue.contains('5') &&
-       !strInputValue.contains('6') && !strInputValue.contains('7') && !strInputValue.contains('8') &&
-       !strInputValue.contains('9'))
+    int nAsciiValue;
+    /* Check normal input */
+    for(int i = 0; i < strInputValue.length(); i++)
     {
-        return false;
+        nAsciiValue = strInputValue.at(i).toLatin1(); /* Get ASCII code of each character */
+        if((nAsciiValue >= 48) && (nAsciiValue <= 57)) /* 0-9 */
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     return true;
@@ -57,12 +42,14 @@ bool Hex::isStringHex(void)
         }
         else
         {
-            bWrongInputFlag = true;
-            break;
+            return false;
+            // bWrongInputFlag = true;
+            // break;
         }
     }
 
-    return bWrongInputFlag;
+    // return bWrongInputFlag;
+    return true;
 }
 #endif
 
@@ -83,15 +70,23 @@ void Hex::GenHexValue()
     int nCount = 0;
     bool bFinishFlag = false;
 
-    QRandomGenerator *pRandomGenerator = QRandomGenerator::global();
-    if(pRandomGenerator == nullptr)
+    if(!isNumber())
     {
-        // do something
+        strHexValue = QString("Input only number!!");
+        return;
     }
 
+    nReqLen = strInputValue.toInt();
     if(nReqLen == 0)
     {
         strHexValue.clear();
+        return;
+    }
+
+    QRandomGenerator *pRandomGenerator = QRandomGenerator::global();
+    if(pRandomGenerator == nullptr)
+    {
+        strHexValue = QString("Internal error!!");
         return;
     }
 
@@ -102,7 +97,8 @@ void Hex::GenHexValue()
         for(int j = 0; j < 4; j++)
         {
             bytes[j] = (nRandomValue32 >> (24 - (j * 8))) & 0xFF;
-            strHexValue.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper()); nCount++;
+            strHexValue.append(QString("0x")).append(QString("%1, ").arg((long)bytes[j], 2, 16, QChar('0')).toUpper());
+            nCount++;
             if(nCount >= nReqLen)
             {
                 bFinishFlag = true;
@@ -116,8 +112,6 @@ void Hex::GenHexValue()
     }
 
     strHexValue.chop(2); /*  Eliminate comma(,) + space */
-
-    delete pRandomGenerator;
 }
 
 void Hex::Put0x()
