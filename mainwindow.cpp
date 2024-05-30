@@ -13,9 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rbtn_Put0x, SIGNAL(clicked()), this, SLOT(switchMode()));
     connect(ui->rbtn_Drop0x, SIGNAL(clicked()), this, SLOT(switchMode()));
 
-    // connect(ui->te_HexValue, SIGNAL(textChanged()), this, SLOT(changeInput(QString)));
-    // connect(ui->te_HexValue, &QTextEdit::textChanged, this, &MainWindow::changeInput);
-
+    /* Initialize */
     ui->rbtn_GenHex->setChecked(true);
     this->nMode = 0;
 
@@ -53,7 +51,6 @@ void MainWindow::getHexValue(void)
 
 void MainWindow::switchMode()
 {
-    // ui->te_HexValue->clear();
     if(ui->rbtn_GenHex->isChecked())
     {
         nMode = 0;
@@ -67,11 +64,3 @@ void MainWindow::switchMode()
         nMode = 2;
     }
 }
-/*
-void MainWindow::changeInput()
-{
-    QString strInputValue = ui->te_HexValue->toPlainText();
-    int nInputLength = strInputValue.length();
-    ui->label_InputLen->setText(QString("%1").arg(nInputLength));
-}
-*/

@@ -15,12 +15,11 @@ private:
     // bool bWrongInputFlag = false;
     int nMode;
 
-    bool isStringHex(void);
+    bool isHexFormat(void);
     bool isDecNumber(void); /* Check input has only numbers */
     bool isHexNumber(void);
 
 public:
-    // Hex(int nMode = 0, QString strInputValue = "");
     Hex(QString strInputValue = "");
     void GenHexValue();
     void Put0x();

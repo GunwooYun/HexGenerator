@@ -21,7 +21,6 @@ private slots:
 
     void getHexValue(void);
     void switchMode(void);
-    // void changeInput();
 
 private:
     Ui::MainWindow *ui;

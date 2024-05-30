@@ -49,7 +49,7 @@ bool Hex::isHexNumber(void)
 }
 
 #if 1
-bool Hex::isStringHex(void)
+bool Hex::isHexFormat(void)
 {
     int nAsciiValue;
 
@@ -185,6 +185,8 @@ void Hex::Put0x()
     }
 
     strHexValue.chop(2); /* Remove ", " */
+
+    nReqLen /= 2; /* Convert length to bytes */
 }
 
 void Hex::Drop0x()
@@ -213,4 +215,6 @@ void Hex::Drop0x()
         }
         strHexValue.append(strTemp); /* Append only hex value */
     }
+
+    nReqLen = strHexValue.length() / 2; /* Convert length to bytes */
 }
