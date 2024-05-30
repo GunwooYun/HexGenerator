@@ -53,7 +53,7 @@ void MainWindow::getHexValue(void)
 
 void MainWindow::switchMode()
 {
-    ui->te_HexValue->clear();
+    // ui->te_HexValue->clear();
     if(ui->rbtn_GenHex->isChecked())
     {
         nMode = 0;

@@ -16,7 +16,8 @@ private:
     int nMode;
 
     bool isStringHex(void);
-    bool isNumber(void); /* Check input has only numbers */
+    bool isDecNumber(void); /* Check input has only numbers */
+    bool isHexNumber(void);
 
 public:
     // Hex(int nMode = 0, QString strInputValue = "");

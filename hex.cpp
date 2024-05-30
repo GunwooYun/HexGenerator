@@ -7,7 +7,7 @@ Hex::Hex(QString strInput)
     this->nReqLen = 0;
 }
 
-bool Hex::isNumber(void)
+bool Hex::isDecNumber(void)
 {
     int nAsciiValue;
     /* Check normal input */
@@ -26,6 +26,28 @@ bool Hex::isNumber(void)
 
     return true;
 }
+
+bool Hex::isHexNumber(void)
+{
+    int nAsciiValue;
+
+    /* Check normal input */
+    for(int i = 0; i < strInputValue.length(); i++)
+    {
+        nAsciiValue = strInputValue.at(i).toLatin1(); /* Get ASCII code of each character */
+        if((nAsciiValue >= 65 && nAsciiValue <= 70) || (nAsciiValue >= 97 && nAsciiValue <= 102) || /* A-F || a-f */
+            (nAsciiValue >= 48 && nAsciiValue <= 57)) /* 0-9 || x || X || ' ' */
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 #if 1
 bool Hex::isStringHex(void)
 {
@@ -36,19 +58,15 @@ bool Hex::isStringHex(void)
     {
         nAsciiValue = strInputValue.at(i).toLatin1(); /* Get ASCII code of each character */
         if((nAsciiValue >= 65 && nAsciiValue <= 70) || (nAsciiValue >= 97 && nAsciiValue <= 102) || /* A-F || a-f */
-            (nAsciiValue >= 48 && nAsciiValue <= 57) || (nAsciiValue == 120) || (nAsciiValue == 88)) /* 0-9 || x || X */
+            (nAsciiValue >= 48 && nAsciiValue <= 57) || (nAsciiValue == 120) || (nAsciiValue == 88) || (nAsciiValue == 32)) /* 0-9 || x || X || ' ' */
         {
             continue;
         }
         else
         {
             return false;
-            // bWrongInputFlag = true;
-            // break;
         }
     }
-
-    // return bWrongInputFlag;
     return true;
 }
 #endif
@@ -70,9 +88,9 @@ void Hex::GenHexValue()
     int nCount = 0;
     bool bFinishFlag = false;
 
-    if(!isNumber())
+    if(!isDecNumber())
     {
-        strHexValue = QString("Input only number!!");
+        strHexValue = QString("Input only decimal number!!");
         return;
     }
 
@@ -136,12 +154,19 @@ void Hex::Put0x()
         strInputValue.remove(nIndex, 1); /* Remove "0x" */
     }
 
+    /* Remove space */
     while(true)
     {
-        nIndex = strInputValue.indexOf(' '); /* Get index of ',' */
+        nIndex = strInputValue.indexOf(' '); /* Get index of ' ' */
         if(nIndex < 0) break; /* No more "0x" */
 
         strInputValue.remove(nIndex, 1); /* Remove "0x" */
+    }
+
+    if(!isHexNumber())
+    {
+        strHexValue = QString("Input only Hex number!!");
+        return;
     }
 
     nReqLen = strInputValue.length(); /* Input string length */
