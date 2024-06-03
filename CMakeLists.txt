@@ -42,6 +42,7 @@ else()
         add_executable(HexGenerator
             ${PROJECT_SOURCES}
             hex.h hex.cpp
+            hg.rc
         )
     endif()
 endif()
