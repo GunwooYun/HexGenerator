@@ -221,15 +221,13 @@ void Hex::Drop0x()
 
 void Hex::DecToHex()
 {
-    // strHexValue = QString("hello, world");
-    // Need to add
     unsigned int nDecimal;
     if(!isDecNumber())
     {
         strHexValue = QString("No Decimal number!!");
         return;
     }
-    nDecimal = strHexValue.toInt();
+    nDecimal = strInputValue.toInt();
 
-    strHexValue = QString::number(nDecimal, 16);
+    strHexValue = QString::number(nDecimal, 16); /* Convert decimal to hexadecimal */
 }
