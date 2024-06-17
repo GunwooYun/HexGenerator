@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rbtn_GenHex, SIGNAL(clicked()), this, SLOT(switchMode()));
     connect(ui->rbtn_Put0x, SIGNAL(clicked()), this, SLOT(switchMode()));
     connect(ui->rbtn_Drop0x, SIGNAL(clicked()), this, SLOT(switchMode()));
+    connect(ui->rbtn_DecTohex, SIGNAL(clicked()), this, SLOT(switchMode()));
 
     /* Initialize */
     ui->rbtn_GenHex->setChecked(true);
@@ -40,9 +41,13 @@ void MainWindow::getHexValue(void)
     {
         hex.Put0x();
     }
-    else /* nMode == 2 */
+    else if(nMode == 2)
     {
         hex.Drop0x();
+    }
+    else /* nMode == 3 */
+    {
+        hex.DecToHex();
     }
     ui->label_InputLen->setText(QString("%1 Bytes").arg(hex.GetHexLen()));
 
@@ -59,8 +64,13 @@ void MainWindow::switchMode()
     {
         nMode = 1;
     }
-    else
+    else if(ui->rbtn_Drop0x->isChecked())
     {
         nMode = 2;
     }
+    else
+    {
+        nMode = 3;
+    }
 }
+

@@ -59,6 +59,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QRadioButton" name="rbtn_DecTohex">
+           <property name="text">
+            <string>Dec-&gt;Hex</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>

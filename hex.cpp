@@ -218,3 +218,18 @@ void Hex::Drop0x()
 
     nReqLen = strHexValue.length() / 2; /* Convert length to bytes */
 }
+
+void Hex::DecToHex()
+{
+    // strHexValue = QString("hello, world");
+    // Need to add
+    unsigned int nDecimal;
+    if(!isDecNumber())
+    {
+        strHexValue = QString("No Decimal number!!");
+        return;
+    }
+    nDecimal = strHexValue.toInt();
+
+    strHexValue = QString::number(nDecimal, 16);
+}

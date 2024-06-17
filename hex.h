@@ -26,6 +26,8 @@ public:
     void Drop0x();
     QString GetHexValue();
     int GetHexLen();
+
+    void DecToHex();
 };
 
 #endif // HEX_H
