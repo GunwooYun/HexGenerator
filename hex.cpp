@@ -1,6 +1,8 @@
 #include "hex.h"
 #include <QRandomGenerator>
 
+#include <openssl/rand.h>
+
 Hex::Hex(QString strInput)
 {
     this->strInputValue = strInput;
@@ -229,5 +231,20 @@ void Hex::DecToHex()
     }
     nDecimal = strInputValue.toInt();
 
-    strHexValue = QString::number(nDecimal, 16); /* Convert decimal to hexadecimal */
+    // strHexValue = QString::number(nDecimal, 16); /* Convert decimal to hexadecimal */
+    strHexValue = QString("%1").arg(nDecimal, 0, 16).toUpper();
+    if(strHexValue.length() % 2)
+    {
+        strHexValue.prepend('0');
+    }
+
+    // unsigned char randArr[1024] = {0x00, };
+    // RAND_bytes(randArr, 1024);
+
+    // std::string test= (char*)randArr;
+    // strHexValue = QString::fromStdString(test);
+
+    // strHexValue = QString("%1").arg()
+
+
 }

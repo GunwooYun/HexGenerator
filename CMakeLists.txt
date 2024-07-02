@@ -47,7 +47,20 @@ else()
     endif()
 endif()
 
-target_link_libraries(HexGenerator PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+include_directories(
+    #"c:/myopenssl/include"
+    "./include"
+)
+
+target_link_directories(HexGenerator PRIVATE
+    # "c:/myopenssl"
+    "./"
+)
+
+target_link_libraries(HexGenerator PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    crypto
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
